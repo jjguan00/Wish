@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<a href="new">Make a wish</a>|<a href="stats">Stats</a>
+	<a href="/logOut">Log Out</a>
+	<br>
+	<h4>Hello {{user.firstname}} !</h4><br>
+	Your Wish List:
+	<table style="width: 500px; border: 1px solid black;">
+	  <tr>
+	    <th>Item</th>
+	    <th>Date added</th> 
+	    <th>Actions</th>
+	  </tr>
+	  {%for wish in wishes%}
+	  <tr>
+	    <td>{{wish.item}}</td>
+	    <td>{{wish.created_at}}</td> 
+	    <td><a href="/remove/{{wish.id}}">Remove</a> | <a href="/edit/{{wish.id}}">Edit</a> | <a href="/grant/{{wish.id}}">Granted!</a></td>
+	  </tr>
+	  	{%endfor%}
+	</table>
+	Granted Wish:
+	<table style="width: 600px; border: 1px solid black;">
+		<tr>
+		    <th>Item</th>
+		    <th>Wisher</th>
+		    <th>Date added</th>
+		    <th>Date Granted</th>
+		    <th>Likes</th>
+		    <th>Actions</th>
+		</tr>
+		{%for wish in grantedWishes%}
+		  <tr>
+		    <td>{{wish.item}}</td>
+		    <td>{{wish.user.firstname}}</td>
+		    <td>{{wish.created_at}}</td>
+		    <td>{{wish.updated_at}}</td>
+		    {%if like %}
+		   		<td>{{wish.likes.all.count}}</td>
+		    {% else %}
+		    	<td>0</td>
+	    	{% endif %}
+
+		    {% if user != wish.user%}
+		    	{%if wish.likes.all%}
+			    	{%for i in like%}
+			    		{% if i.wish == wish%}
+			    			{% if i.user == user%}
+			    			{% else %}
+			    				<td><a href="/like/{{wish.id}}">Like</td>
+							{% endif %}
+			    		{% else %}
+			    		{% endif %}
+					{% endfor %}
+
+					{% else %}
+					<td><a href="/like/{{wish.id}}">Like</td>
+			    {% endif %}
+			{%endif%}
+		  </tr>
+	  	{%endfor%}
+	</table>
+</body>
+</html>

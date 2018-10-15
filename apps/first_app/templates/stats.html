@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+	<body>
+		Hello {{user.firstname}} ! These are your stats!<a href="/wishes"> Dash Board</a>   <a href="/logOut"> Log Out</a><br><br>
+		<h4>Total wishes granted so far for all users: {{totalGrantedWishes.count}}</h4><br><br>
+		<h5>Your granted wishes: {{grantedWishes.count}}</h5><br>
+		<h5>Your pending wishes: {{pendingWishes.count}}</h5>
+	</body>
+</html>
